@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebGPU Object Tracker</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: black; }
+    video, canvas { position: absolute; top: 0; left: 0; }
+    video { display: none; }
+  </style>
+
+  <!-- ✅ UMD scripts that define `tf`, `cocoSsd`, `mobilenet`, etc. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgpu@4.22.0/dist/tf-backend-webgpu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.2/dist/coco-ssd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/munkres-js@1.2.2/munkres.js"></script>
+
+  <!-- 🔁 Start app once WebGPU backend is ready -->
+  <script type="module">
+    import { startApp } from './main.js';
+    tf.setBackend('webgpu').then(() => tf.ready()).then(startApp);
+  </script>
+</head>
+<body>
+  <video id="video" autoplay muted playsinline></video>
+  <canvas id="canvas"></canvas>
+</body>
+</html>
